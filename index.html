@@ -9,7 +9,7 @@
   <script src="./script.js"></script>
 </head>
 <body>
-  <div class="page">
+  <div class="page page_modal-opened">
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Логотип">
     </header>
@@ -28,14 +28,14 @@
       <section class="elements" aria-label="Элементы">
         <ul class="elements__list">
           <li class="elements__element">
-            <img src="./images/elements-dombai.jpg" alt="Карачаевск" class="elements__image">
+            <img src="./images/elements-karachaevsk.jpg" alt="Карачаевск" class="elements__image">
             <div class="elements__info">
               <p class="elements__name">Карачаевск</p>
               <button class="elements__like">Лайк</button>
             </div>
           </li>
           <li class="elements__element">
-            <img src="./images/profile-avatar.jpg" alt="Гора Эльбрус" class="elements__image">
+            <img src="./images/elements-elbrus.jpg" alt="Гора Эльбрус" class="elements__image">
             <div class="elements__info">
               <p class="elements__name">Гора Эльбрус</p>
               <button class="elements__like">Лайк</button>
@@ -49,7 +49,7 @@
             </div>
           </li>
           <li class="elements__element">
-            <img src="./images/profile-avatar.jpg" alt="Гора Эльбрус" class="elements__image">
+            <img src="./images/elements-elbrus.jpg" alt="Гора Эльбрус" class="elements__image">
             <div class="elements__info">
               <p class="elements__name">Гора Эльбрус</p>
               <button class="elements__like">Лайк</button>
@@ -63,7 +63,11 @@
             </div>
           </li>
           <li class="elements__element">
-            <img src="./images/elements-dombai.jpg" alt="Карачаево-Черкесская Республика" class="elements__image">
+            <img
+              src="./images/elements-karachaevsk.jpg"
+              alt="Карачаево-Черкесская Республика"
+              class="elements__image"
+            >
             <div class="elements__info">
               <p class="elements__name">Карачаево-Черкесская Республика</p>
               <button class="elements__like">Лайк</button>
@@ -75,6 +79,33 @@
     <footer class="footer">
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
+  </div>
+  <div class="popup popup_opened">
+    <div class="popup__container">
+      <div class="popup__form-wrapper">
+        <p class="popup__title">Редактировать профиль</p>
+        <form action="#" class="popup__form">
+          <input
+            type="text"
+            class="popup__input-text"
+            name="name"
+            placeholder="Имя"
+            autocomplete="off"
+            value=""
+          >
+          <input
+            type="text"
+            class="popup__input-text"
+            name="rank"
+            placeholder="Профессия"
+            autocomplete="off"
+            value=""
+          >
+          <button class="popup__submit">Сохранить</button>
+        </form>
+        <button class="popup__close">Закрыть</button>
+      </div>
+    </div>
   </div>
 </body>
 </html>

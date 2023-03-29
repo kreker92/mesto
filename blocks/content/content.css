@@ -13,7 +13,7 @@
   }
 }
 
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 560px) {
   .content {
     padding-bottom: 48px;
   }

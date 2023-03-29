@@ -1,0 +1,6 @@
+@media screen and (max-width: 560px) {
+  .popup__container {
+    width: calc(100% - (2 * 19px));
+    min-width: calc(320px - (2 * 19px));
+  }
+}

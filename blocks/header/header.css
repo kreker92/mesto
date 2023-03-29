@@ -10,3 +10,9 @@
   justify-content: flex-start;
   border-bottom: 1px solid #545454;
 }
+
+@media screen and (max-width: 560px) {
+  .header {
+    padding: 28px 0 31.6px;
+  }
+}

@@ -6,12 +6,21 @@
   background: none;
   border: 0;
   background: url(../../../images/profile-edit.svg) no-repeat;
+  background-size: contain;
   cursor: pointer;
   position: absolute;
-  top: 15px;
+  top: 13px;
   right: 0;
 }
 
 .profile__edit:hover {
   background-image: url(../../../images/profile-edit-hover.svg);
+}
+
+@media screen and (max-width: 560px) {
+  .profile__edit {
+    width: 18px;
+    height: 18px;
+    top: 7px;
+  }
 }

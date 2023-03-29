@@ -1,0 +1,13 @@
+.popup__form-wrapper {
+  background-color: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 0 36px 37px;
+  position: relative;
+}
+
+@media screen and (max-width: 560px) {
+  .popup__form-wrapper {
+    padding: 0 22px 25px;
+  }
+}
