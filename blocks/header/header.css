@@ -1,0 +1,12 @@
+.header {
+  grid-area: header;
+  max-width: 880px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 45px 0 41px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border-bottom: 1px solid #545454;
+}

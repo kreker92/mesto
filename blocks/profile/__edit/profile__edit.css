@@ -1,0 +1,17 @@
+.profile__edit {
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  font-size: 0;
+  background: none;
+  border: 0;
+  background: url(../../../images/profile-edit.svg) no-repeat;
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 0;
+}
+
+.profile__edit:hover {
+  background-image: url(../../../images/profile-edit-hover.svg);
+}

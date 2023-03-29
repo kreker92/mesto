@@ -1,0 +1,12 @@
+.profile__info {
+  position: relative;
+  padding-right: calc(18px + 24px);
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 700px) {
+  .profile__info {
+    padding: 0 calc(18px + 24px) 36px;
+    margin-top: 26px;
+  }
+}

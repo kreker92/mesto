@@ -1,0 +1,11 @@
+.profile__rank {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.22;
+}
+
+@media screen and (max-width: 700px) {
+  .profile__rank {
+    padding-top: 5px;
+  }
+}
