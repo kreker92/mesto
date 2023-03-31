@@ -2,7 +2,7 @@
   display: none;
   font: 18px Inter, sans-serif;
   background-color: rgba(0, 0, 0, .5);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   justify-content: center;

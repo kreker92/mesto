@@ -1,9 +1,9 @@
 .profile__avatar-container {
-  width: 120px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-right: 30px;
+  flex: 0 0 120px;
+  height: 120px;
 }
 
 @media screen and (max-width: 700px) {

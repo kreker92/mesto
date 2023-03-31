@@ -8,10 +8,11 @@
   background-size: contain;
   cursor: pointer;
   margin-top: 13px;
+  flex: 0 0 24px;
 }
 
 .profile__edit:hover {
-  background-image: url(../../../images/profile-edit-hover.svg);
+  opacity: .5;
 }
 
 @media screen and (max-width: 560px) {
@@ -19,5 +20,6 @@
     width: 18px;
     height: 18px;
     margin-top: 7px;
+    flex-basis: 18px;
   }
 }

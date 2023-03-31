@@ -3,13 +3,20 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
-  column-gap: 19px;
+  gap: 19px;
+  max-width: 100%;
+  flex: 0 1 auto;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 700px) {
   .profile__info-wrapper {
     margin-top: 26px;
-    padding-left: 16px;
+    padding-left: 28px;
     padding-bottom: 33px;
+    /* max-width: calc(100vw - (2 * 19px)); */
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
   }
 }

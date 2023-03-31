@@ -1,25 +1,27 @@
 "use strict";
 
 const popupModalOpenedClass = 'popup_opened';
-const pageModalOpenedClass = 'page_modal-opened';
+const popupClass = 'popup';
+const popupCloseClass = 'popup__close';
 
 const popupElement = document.querySelector('.popup');
-const pageElement = document.querySelector('.page');
-const closeElement = popupElement.querySelector('.popup__close');
 
 // Находим форму в DOM
 const formElement = document.querySelector('.popup__form');
 // Находим поля формы в DOM
-const nameInput = document.querySelector('.popup__name');
-const jobInput = document.querySelector('.popup__rank');
+const nameInput = document.querySelector('.popup__input-text_profile_name');
+const jobInput = document.querySelector('.popup__input-text_profile_rank');
 
 // Выберите элементы, куда должны быть вставлены значения полей
 const nameField = document.querySelector('.profile__name');
 const jobField = document.querySelector('.profile__rank');
 
-function toggleModal () {
-  pageElement.classList.toggle(pageModalOpenedClass);
-  popupElement.classList.toggle(popupModalOpenedClass);
+function openModal() {
+  popupElement.classList.add(popupModalOpenedClass);
+}
+
+function closeModal() {
+  popupElement.classList.remove(popupModalOpenedClass);
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -37,12 +39,13 @@ function handleFormSubmit (evt) {
     nameField.textContent = nameValue;
     jobField.textContent = jobValue;
 
-    toggleModal();
+    closeModal();
 }
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
+
 
 const editButtonElement = document.querySelector('.profile__edit');
 
@@ -53,9 +56,18 @@ function handleEditButtonClick () {
   nameInput.value = nameValue;
   jobInput.value = jobValue;
 
-  toggleModal();
+  openModal();
+}
+
+function handlePopupClick(evt) {
+  const { classList } = evt?.target;
+  if (
+    classList?.contains(popupClass) ||
+    classList?.contains(popupCloseClass)
+  ) {
+    closeModal();
+  }
 }
 
 editButtonElement.addEventListener('click', handleEditButtonClick);
-
-closeElement.addEventListener('click', toggleModal);
+popupElement.addEventListener('click', handlePopupClick);
