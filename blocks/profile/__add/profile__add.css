@@ -9,8 +9,7 @@
   background-position: center center;
   font-size: 0;
   cursor: pointer;
-  flex: 0 0 150px;
-  width: 150px;
+  flex: 0 1 150px;
 }
 
 .profile__add:hover {
