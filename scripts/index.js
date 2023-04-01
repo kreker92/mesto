@@ -1,16 +1,15 @@
 "use strict";
 
 const popupModalOpenedClass = 'popup_opened';
-const popupClass = 'popup';
-const popupCloseClass = 'popup__close';
 
 const popupElement = document.querySelector('.popup');
+const popupCloseBtnElement = document.querySelector('.popup__close');
 
 // Находим форму в DOM
 const formElement = document.querySelector('.popup__form');
 // Находим поля формы в DOM
-const nameInput = document.querySelector('.popup__input-text_profile_name');
-const jobInput = document.querySelector('.popup__input-text_profile_rank');
+const nameInput = document.querySelector('.popup__input-text_type_profile-name');
+const jobInput = document.querySelector('.popup__input-text_type_profile-rank');
 
 // Выберите элементы, куда должны быть вставлены значения полей
 const nameField = document.querySelector('.profile__name');
@@ -59,15 +58,5 @@ function handleEditButtonClick () {
   openModal();
 }
 
-function handlePopupClick(evt) {
-  const { classList } = evt?.target;
-  if (
-    classList?.contains(popupClass) ||
-    classList?.contains(popupCloseClass)
-  ) {
-    closeModal();
-  }
-}
-
 editButtonElement.addEventListener('click', handleEditButtonClick);
-popupElement.addEventListener('click', handlePopupClick);
+popupCloseBtnElement.addEventListener('click', closeModal);

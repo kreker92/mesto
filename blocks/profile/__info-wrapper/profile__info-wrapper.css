@@ -5,18 +5,19 @@
   justify-content: space-between;
   gap: 19px;
   max-width: 100%;
-  flex: 0 1 auto;
-  overflow: hidden;
+  flex: 0 1 336px;
+  max-width: 336px;
 }
 
 @media screen and (max-width: 700px) {
   .profile__info-wrapper {
     margin-top: 26px;
-    padding-left: 28px;
     padding-bottom: 33px;
-    /* max-width: calc(100vw - (2 * 19px)); */
+    padding-left: 28px;
     width: 100%;
+    max-width: calc(282px - 28px);
     justify-content: center;
     gap: 10px;
+    flex-basis: auto;
   }
 }

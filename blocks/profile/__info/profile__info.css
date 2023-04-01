@@ -1,5 +1,4 @@
 .profile__info {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   max-width: 100%;
-  overflow: hidden;
 }
