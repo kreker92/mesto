@@ -1,8 +1,9 @@
-.elements__info {
+.cards__info {
   background-color: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 21px;
   height: 100%;
+  flex-basis: 79px;
 }

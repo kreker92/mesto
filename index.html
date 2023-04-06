@@ -26,63 +26,29 @@
         </div>
         <button class="profile__add" type="button" aria-label="Добавить">+</button>
       </section>
-      <section class="elements" aria-label="Элементы">
-        <ul class="elements__list">
-          <li class="elements__element">
-            <img src="./images/elements-karachaevsk.jpg" alt="Карачаевск" class="elements__image">
-            <div class="elements__info">
-              <h2 class="elements__name">Карачаевск</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img src="./images/elements-elbrus.jpg" alt="Гора Эльбрус" class="elements__image">
-            <div class="elements__info">
-              <h2 class="elements__name">Гора Эльбрус</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img src="./images/elements-dombai.jpg" alt="Домбай" class="elements__image">
-            <div class="elements__info">
-              <h2 class="elements__name">Домбай</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img src="./images/elements-elbrus.jpg" alt="Гора Эльбрус" class="elements__image">
-            <div class="elements__info">
-              <h2 class="elements__name">Гора Эльбрус</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img src="./images/elements-dombai.jpg" alt="Домбай" class="elements__image">
-            <div class="elements__info">
-              <h2 class="elements__name">Домбай</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-          <li class="elements__element">
-            <img
-              src="./images/elements-karachaevsk.jpg"
-              alt="Карачаево-Черкесская Республика"
-              class="elements__image"
-            >
-            <div class="elements__info">
-              <h2 class="elements__name">Карачаево-Черкесская Республика</h2>
-              <button class="elements__like" type="button" aria-label="Лайк"></button>
-            </div>
-          </li>
-        </ul>
+      <section class="cards" aria-label="Элементы">
+        <ul class="cards__list"></ul>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
-    <div class="popup__container">
+  <div class="popup"></div>
+  <template id="card">
+    <li class="cards__card">
+      <a class="cards__image-link" href="#">
+        <img src="" alt="" class="cards__image">
+      </a>
+      <div class="cards__info">
+        <h2 class="cards__name"></h2>
+        <button class="cards__like" type="button" aria-label="Лайк"></button>
+      </div>
+      <button class="cards__trash" aria-label="Удалить"></button>
+    </li>
+  </template>
+  <template id="popup-profile">
+    <div class="popup__container popup__container_theme_form">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form method="post" action="#" name="profile-info" class="popup__form">
         <input
@@ -105,7 +71,42 @@
       </form>
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
     </div>
-  </div>
+  </template>
+  <template id="popup-add-card">
+    <div class="popup__container popup__container_theme_form">
+      <h2 class="popup__title">Новое место</h2>
+      <form method="post" action="#" name="card-info" class="popup__form">
+        <input
+          type="text"
+          class="popup__input-text popup__input-text_type_card-name"
+          name="name"
+          placeholder="Название"
+          autocomplete="off"
+          value=""
+        >
+        <input
+          type="text"
+          class="popup__input-text popup__input-text_type_card-image-url"
+          name="rank"
+          placeholder="Ссылка на картинку"
+          autocomplete="off"
+          value=""
+        >
+        <button class="popup__submit" type="submit">Сохранить</button>
+      </form>
+      <button class="popup__close" type="button" aria-label="Закрыть"></button>
+    </div>
+  </template>
+  <template id="popup-slide">
+    <div class="popup__container popup__container_theme_slide">
+      <div class="popup__slide-container">
+        <img src="" alt="" class="popup__slide-image">
+        <p class="popup__slide-title"></p>
+      </div>
+      <button class="popup__close" type="button" aria-label="Закрыть"></button>
+    </div>
+  </template>
+  <script src="./scripts/initial-cards.js" defer></script>
   <script src="./scripts/index.js" defer></script>
 </body>
 </html>

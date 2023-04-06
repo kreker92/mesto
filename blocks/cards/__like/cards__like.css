@@ -1,4 +1,4 @@
-.elements__like {
+.cards__like {
   padding: 0;
   background: url(../../../images/elements-like-disabled.svg) no-repeat;
   width: 22px;
@@ -8,6 +8,6 @@
   cursor: pointer;
 }
 
-.elements__like:hover {
+.cards__like:hover {
   opacity: .5;
 }
