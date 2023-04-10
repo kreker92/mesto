@@ -34,20 +34,7 @@
       <p class="footer__copyright">© 2023 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup"></div>
-  <template id="card">
-    <li class="cards__card">
-      <a class="cards__image-link" href="#">
-        <img src="#" alt="" class="cards__image">
-      </a>
-      <div class="cards__info">
-        <h2 class="cards__name"></h2>
-        <button class="cards__like" type="button" aria-label="Лайк"></button>
-      </div>
-      <button class="cards__trash" aria-label="Удалить"></button>
-    </li>
-  </template>
-  <template id="popup-profile">
+  <div class="popup popup-profile">
     <div class="popup__container popup__container_theme_form">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form method="post" action="#" name="profile-info" class="popup__form">
@@ -71,8 +58,8 @@
       </form>
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
     </div>
-  </template>
-  <template id="popup-add-card">
+  </div>
+  <div class="popup popup-card">
     <div class="popup__container popup__container_theme_form">
       <h2 class="popup__title">Новое место</h2>
       <form method="post" action="#" name="card-info" class="popup__form">
@@ -96,8 +83,8 @@
       </form>
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
     </div>
-  </template>
-  <template id="popup-slide">
+  </div>
+  <div class="popup popup_type_slide">
     <div class="popup__container popup__container_theme_slide">
       <div class="popup__slide-container">
         <img src="#" alt="" class="popup__slide-image">
@@ -105,6 +92,18 @@
       </div>
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
     </div>
+  </div>
+  <template id="card">
+    <li class="cards__card">
+      <a class="cards__image-link" href="#">
+        <img src="#" alt="" class="cards__image">
+      </a>
+      <div class="cards__info">
+        <h2 class="cards__name"></h2>
+        <button class="cards__like" type="button" aria-label="Лайк"></button>
+      </div>
+      <button class="cards__trash" aria-label="Удалить"></button>
+    </li>
   </template>
   <script src="./scripts/initial-cards.js" defer></script>
   <script src="./scripts/index.js" defer></script>
