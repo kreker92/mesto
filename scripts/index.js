@@ -33,7 +33,7 @@ const popupCloseBtnElements = document.querySelectorAll('.popup__close');
 const cardTemplate = document.querySelector('#card').content;
 const cardsListElement = document.querySelector('.cards__list');
 
-const popupSlideElement = document.querySelector('.popup-slide');
+const popupSlideElement = document.querySelector('.popup_type_slide');
 
 initCards();
 initOpenPopup();
