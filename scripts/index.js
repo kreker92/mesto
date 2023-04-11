@@ -30,10 +30,13 @@ const addCardForm = {
 
 const popupCloseBtnElements = document.querySelectorAll('.popup__close');
 
+
 const cardTemplate = document.querySelector('#card').content;
 const cardsListElement = document.querySelector('.cards__list');
 
 const popupSlideElement = document.querySelector('.popup_type_slide');
+const slideImageElement = document.querySelector('.popup__slide-image');
+const titleImageElement = document.querySelector('.popup__slide-title');
 
 initCards();
 initOpenPopup();
@@ -56,8 +59,6 @@ function handleEditButtonClick() {
 }
 
 function handleAddCardButtonClick() {
-  addCardForm.inputs.name.value = '';
-  addCardForm.inputs.link.value = '';
   openPopup(addCardForm.popup);
 }
 
@@ -67,9 +68,8 @@ function openPopup(popupElement) {
 
 function initClosePopup() {
   Array.from(popupCloseBtnElements).forEach(btn => {
-    btn.addEventListener('click', (evt) => {
-      closePopup(evt.target.closest(`.${popupClass}`));
-    });
+    const popupElement = btn.closest(`.${popupClass}`);
+    btn.addEventListener('click', () => closePopup(popupElement));
   });
 }
 
@@ -96,7 +96,6 @@ function renderCard({name, link}) {
   const likeElement = card.querySelector('.cards__like');
 
   nameElement.textContent = name;
-  linkElement.setAttribute('href', link);
   imageElement.setAttribute('alt', name);
   imageElement.setAttribute('src', link);
 
@@ -110,12 +109,11 @@ function renderCard({name, link}) {
 function handleCardLinkClick(evt, name, link) {
   evt.preventDefault();
 
-  const slideImageElement = document.querySelector('.popup__slide-image');
-  const titleImageElement = document.querySelector('.popup__slide-title');
   slideImageElement.setAttribute('alt', name);
   slideImageElement.setAttribute('src', link);
   titleImageElement.textContent = name;
-  popupSlideElement.classList.add(popupOpenedClass);
+
+  openPopup(popupSlideElement);
 }
 
 function toggleCardLike(likeElement) {
@@ -150,6 +148,8 @@ function handleFormCardSubmit(evt) {
   const link = addCardForm.inputs.link.value;
 
   const card = renderCard({name, link});
+
+  evt.target.reset();
 
   addCard(card);
   closePopup(addCardForm.popup);
