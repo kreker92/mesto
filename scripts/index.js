@@ -2,12 +2,13 @@
 
 const popupClass = 'popup';
 const popupOpenedClass = 'popup_opened';
+const popupCloseBtnClass = 'popup__close';
 
 const editProfileForm = {
   popup: document.querySelector('.popup-profile'),
   inputs: {
-    name: document.querySelector('.popup__input-text_type_profile-name'),
-    job: document.querySelector('.popup__input-text_type_profile-rank'),
+    name: document.forms['profile-info'].elements.name,
+    job: document.forms['profile-info'].elements.rank,
   },
   fields: {
     name: document.querySelector('.profile__name'),
@@ -20,16 +21,15 @@ const editProfileForm = {
 const addCardForm = {
   popup: document.querySelector('.popup-card'),
   inputs: {
-    name: document.querySelector('.popup__input-text_type_card-name'),
-    link: document.querySelector('.popup__input-text_type_card-image-url'),
+    name: document.querySelector('.popup__input_type_card-name'),
+    link: document.querySelector('.popup__input_type_card-image-url'),
   },
   btns: {
     add: document.querySelector('.profile__add'),
   },
 };
 
-const popupCloseBtnElements = document.querySelectorAll('.popup__close');
-
+const popupList = document.querySelectorAll('.popup');
 
 const cardTemplate = document.querySelector('#card').content;
 const cardsListElement = document.querySelector('.cards__list');
@@ -38,14 +38,9 @@ const popupSlideElement = document.querySelector('.popup_type_slide');
 const slideImageElement = document.querySelector('.popup__slide-image');
 const titleImageElement = document.querySelector('.popup__slide-title');
 
-initCards();
-initOpenPopup();
-initClosePopup();
-initFormsSubmit();
-
 function initOpenPopup() {
-  editProfileForm.btns.edit.addEventListener('click', handleEditButtonClick );
-  addCardForm.btns.add.addEventListener('click', handleAddCardButtonClick );
+  editProfileForm.btns.edit.addEventListener('click', handleEditButtonClick);
+  addCardForm.btns.add.addEventListener('click', handleAddCardButtonClick);
 }
 
 function handleEditButtonClick() {
@@ -64,12 +59,27 @@ function handleAddCardButtonClick() {
 
 function openPopup(popupElement) {
   popupElement.classList.add(popupOpenedClass);
+
+  const handleKeyDownEscape = (evt) => {
+    if (evt.key === 'Escape') {
+      document.removeEventListener('keydown', handleKeyDownEscape);
+      closePopup(popupElement);
+    }
+  };
+
+  document.addEventListener('keydown', handleKeyDownEscape);
 }
 
 function initClosePopup() {
-  Array.from(popupCloseBtnElements).forEach(btn => {
-    const popupElement = btn.closest(`.${popupClass}`);
-    btn.addEventListener('click', () => closePopup(popupElement));
+  Array.from(popupList).forEach(popupElement => {
+    popupElement.addEventListener('click', (evt) => {
+      if (
+        evt.target.classList.contains(popupClass) ||
+        evt.target.classList.contains(popupCloseBtnClass)
+      ) {
+        closePopup(popupElement)
+      }
+    });
   });
 }
 
@@ -130,20 +140,16 @@ function initFormsSubmit() {
 }
 
 function handleFormProfileSubmit(evt) {
-    evt.preventDefault();
+  const nameValue = editProfileForm.inputs.name.value;
+  const jobValue = editProfileForm.inputs.job.value;
 
-    const nameValue = editProfileForm.inputs.name.value;
-    const jobValue = editProfileForm.inputs.job.value;
+  editProfileForm.fields.name.textContent = nameValue;
+  editProfileForm.fields.job.textContent = jobValue;
 
-    editProfileForm.fields.name.textContent = nameValue;
-    editProfileForm.fields.job.textContent = jobValue;
-
-    closePopup(editProfileForm.popup);
+  closePopup(editProfileForm.popup);
 }
 
 function handleFormCardSubmit(evt) {
-  evt.preventDefault();
-
   const name = addCardForm.inputs.name.value;
   const link = addCardForm.inputs.link.value;
 
@@ -154,3 +160,16 @@ function handleFormCardSubmit(evt) {
   addCard(card);
   closePopup(addCardForm.popup);
 }
+
+initCards();
+initOpenPopup();
+initClosePopup();
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+});
+initFormsSubmit();
