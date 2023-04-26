@@ -1,3 +1,5 @@
+"use strict";
+
 function getErrorElement(formElement, inputElement) {
   return formElement.querySelector(`.${inputElement.id}-error`);
 }
@@ -6,6 +8,7 @@ function showInputError(selectors, formElement, inputElement) {
   const errorElement = getErrorElement(formElement, inputElement);
   errorElement.classList.add(selectors.errorClass);
   errorElement.textContent = inputElement.validationMessage;
+
   inputElement.classList.add(selectors.inputErrorClass);
 }
 
@@ -13,6 +16,7 @@ function hideInputError(selectors, formElement, inputElement) {
   const errorElement = getErrorElement(formElement, inputElement);
   errorElement.classList.remove(selectors.errorClass);
   errorElement.textContent = '';
+
   inputElement.classList.remove(selectors.inputErrorClass);
 }
 
@@ -38,6 +42,11 @@ function setValidationEventListeners(selectors, formElement) {
   const inputList = Array.from(formElement.querySelectorAll(selectors.inputSelector));
   const buttonElement = formElement.querySelector(selectors.submitButtonSelector);
 
+  formElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    toggleButtonState(selectors, inputList, buttonElement);
+  });
+
   toggleButtonState(selectors, inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
@@ -47,14 +56,22 @@ function setValidationEventListeners(selectors, formElement) {
   });
 }
 
+let resetFormValidation;
 function enableValidation(selectors) {
   const formList = document.querySelectorAll(selectors.formSelector);
 
   Array.from(formList).forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
-
     setValidationEventListeners(selectors, formElement);
+  });
+
+  resetFormValidation = ((popupElement) => {
+    const formElement = popupElement.querySelector(selectors.formSelector);
+    if (formElement) {
+      const inputList =
+        formElement.querySelectorAll(selectors.inputSelector);
+      inputList.forEach((inputElement) => {
+        hideInputError(selectors, formElement, inputElement);
+      });
+    }
   });
 }
