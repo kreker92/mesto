@@ -8,14 +8,14 @@ function closePopup(popup) {
   popup.classList.remove(popupOpenedClass);
 
   document.removeEventListener('keydown', handleKeyDownEscape);
-
-  resetFormValidation(popup);
 }
 
-const popupsList = document.querySelectorAll(`.${popupClass}`);
 const handleKeyDownEscape = (evt) => {
   if (evt.key === 'Escape') {
-    Array.from(popupsList).forEach(popup => closePopup(popup));
+    const popupOpened = document.querySelector(`.${popupOpenedClass}`);
+    if (popupOpened) {
+      closePopup(popupOpened);
+    }
   }
 };
 
@@ -25,6 +25,7 @@ function openPopup(popup) {
 }
 
 function handleBtnAddCardClick() {
+  resetFormValidation(popupFormCard);
   openPopup(popupFormCard);
 }
 
@@ -35,6 +36,7 @@ function handleEditButtonClick() {
   formProfile.elements.name.value = nameValue;
   formProfile.elements.rank.value = jobValue;
 
+  resetFormValidation(popupFormProfile);
   openPopup(popupFormProfile);
 }
 
@@ -56,7 +58,7 @@ const popupSlideElement = document.querySelector('.popup_type_slide');
 const slideImageElement = document.querySelector('.popup__slide-image');
 const titleImageElement = document.querySelector('.popup__slide-title');
 
-
+const popupsList = document.querySelectorAll(`.${popupClass}`);
 function initCloseForAllPopups() {
   Array.from(popupsList).forEach(popupElement => {
     popupElement.addEventListener('click', (evt) => {
