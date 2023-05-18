@@ -31,19 +31,22 @@ export default class Card {
     imageEl.setAttribute('alt', name);
     imageEl.setAttribute('src', link);
 
-    linkEl.addEventListener('click', (evt) => this._handleLinkClick(evt, name, link))
+    linkEl.addEventListener('click',
+      (evt) => this._handleLinkClick(evt, name, link)
+    );
     likeEl.addEventListener('click', this._toggleLike);
-    trashEl.addEventListener('click', () => this._remove(card));
+    trashEl.addEventListener('click', this._remove);
 
     this._card = card;
   }
 
   _remove() {
     this._card.remove();
+    this._card = null;
   }
 
-  _toggleLike({ currentTarget }) {
-    currentTarget.classList.toggle('cards__like_active');
+  _toggleLike() {
+    likeEl.classList.toggle('cards__like_active');
   }
 
 }

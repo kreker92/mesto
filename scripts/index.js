@@ -39,35 +39,32 @@ function openPopup(popup) {
   document.addEventListener('keydown', handleKeyDownEscape);
 }
 
-function handleBtnAddCardClick() {
-  formCard.dispatchEvent(new Event('reset-errors'));
+function handleBtnAddCardClick(form) {
+  form.resetFormValidation();
   openPopup(popupFormCard);
 }
+const btnAddCard = document.querySelector('.profile__add');
 
-function handleEditButtonClick() {
+function handleEditButtonClick(form) {
   const nameValue = profileName.textContent;
   const jobValue = profileJob.textContent;
 
-  formProfile.elements.name.value = nameValue;
-  formProfile.elements.rank.value = jobValue;
+  formProfileEl.elements.name.value = nameValue;
+  formProfileEl.elements.rank.value = jobValue;
 
-  formProfile.dispatchEvent(new Event('reset-errors'));
+  form.resetFormValidation();
   openPopup(popupFormProfile);
 }
 
-const btnAddCard = document.querySelector('.profile__add');
-btnAddCard?.addEventListener('click', handleBtnAddCardClick);
-
 const popupFormCard = document.querySelector('.popup-card');
-const formCard = document.forms['card-info'];
+const formCardEl = document.forms['card-info'];
 
 const popupFormProfile = document.querySelector('.popup-profile');
-const formProfile = document.forms['profile-info'];
+const formProfileEl = document.forms['profile-info'];
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__rank');
 
-const btnEditProfile = document.querySelector('.profile__edit')
-btnEditProfile?.addEventListener('click', handleEditButtonClick);
+const btnEditProfile = document.querySelector('.profile__edit');
 
 const popupSlideEl = document.querySelector('.popup_type_slide');
 const slideImageEl = document.querySelector('.popup__slide-image');
@@ -75,7 +72,7 @@ const titleImageEl = document.querySelector('.popup__slide-title');
 
 const popupsList = document.querySelectorAll(`.${popupClass}`);
 function initCloseForAllPopups() {
-  Array.from(popupsList).forEach(popupEl => {
+  popupsList.forEach(popupEl => {
     popupEl.addEventListener('click', (evt) => {
       const isOverlay = evt.target.classList.contains(popupClass);
       const isCloseBtn = evt.target.classList.contains(popupBtnCloseClass)
@@ -98,22 +95,26 @@ function handleCardLinkClick(evt, name, link) {
   openPopup(popupSlideEl);
 }
 
-function handleFormCardSubmit(evt) {
+function handleFormCardSubmit(evt, form) {
+  evt.preventDefault();
+
   const formCard = evt.target;
 
   const name = formCard.elements.name.value;
   const link = formCard.elements.link.value;
 
-  const card = new Card({name, link}, cardTemplate, handleCardLinkClick);
+  const card = createCard({name, link})
 
   formCard.reset();
+  form.toggleButtonState();
 
-  renderCard(card.get());
+  renderCard(card);
   closePopup(popupFormCard);
 }
-formCard.addEventListener('submit', handleFormCardSubmit);
 
-function handleFormProfileSubmit(evt) {
+function handleFormProfileSubmit(evt, form) {
+  evt.preventDefault();
+
   const formProfile = evt.target;
 
   const nameValue = formProfile.elements.name.value;
@@ -122,35 +123,42 @@ function handleFormProfileSubmit(evt) {
   profileName.textContent = nameValue;
   profileJob.textContent = jobValue;
 
+  form.toggleButtonState();
+
   closePopup(popupFormProfile);
 }
-formProfile.addEventListener('submit', handleFormProfileSubmit);
 
 const cardsListWrapper = document.querySelector('.cards__list');
 function renderCard(card) {
   cardsListWrapper.prepend(card);
 }
 
+function createCard(cardData) {
+  const card = new Card(cardData, cardTemplate, handleCardLinkClick);
+
+  return card.get();
+}
+
 function createCards(cards) {
-  return cards.map(cardData => {
-    const card = new Card(cardData, cardTemplate, handleCardLinkClick);
-    return card.get();
-  });
+  return cards.map(createCard);
 }
 function renderCards(cardsList) {
   cardsList.forEach(renderCard);
 }
 
-function enableValidation(selectors) {
-  const formList = document.querySelectorAll(selectors.formSelector);
+function initForms(selectors) {
+  const formProfile = new FormValidator(selectors, formProfileEl);
+  formProfile.enableValidation();
+  btnEditProfile.addEventListener('click', () => handleEditButtonClick(formProfile));
+  formProfileEl.addEventListener('submit', (evt) => handleFormProfileSubmit(evt, formProfile));
 
-  Array.from(formList).forEach((formEl) => {
-    const form = new FormValidator(selectors, formEl);
-    form.enableValidation();
-  });
+  const formCard = new FormValidator(selectors, formCardEl);
+  formCard.enableValidation();
+  btnAddCard.addEventListener('click', () => handleBtnAddCardClick(formCard));
+  formCardEl.addEventListener('submit', (evt) => handleFormCardSubmit(evt, formCard));
 }
+initForms(formValidationConfig);
 
 renderCards(createCards(initialCards));
 
 initCloseForAllPopups();
-enableValidation(formValidationConfig);
