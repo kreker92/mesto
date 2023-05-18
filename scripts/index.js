@@ -1,8 +1,8 @@
 "use strict";
 
 import { initialCards } from './initial-cards.js';
-import Card from './card.js'
-import FormValidator from './form-validator.js'
+import Card from './Card.js'
+import FormValidator from './FormValidator.js'
 
 const popupClass = 'popup';
 const popupOpenedClass = 'popup_opened';
