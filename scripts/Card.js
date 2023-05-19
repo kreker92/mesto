@@ -25,7 +25,7 @@ export default class Card {
     const linkEl = card.querySelector('.cards__image-link');
     const imageEl = card.querySelector('.cards__image');
     const trashEl = card.querySelector('.cards__trash');
-    const likeEl = card.querySelector('.cards__like');
+    this._likeEl = card.querySelector('.cards__like');
 
     nameEl.textContent = name;
     imageEl.setAttribute('alt', name);
@@ -34,7 +34,7 @@ export default class Card {
     linkEl.addEventListener('click',
       (evt) => this._handleLinkClick(evt, name, link)
     );
-    likeEl.addEventListener('click', this._toggleLike);
+    this._likeEl.addEventListener('click', this._toggleLike);
     trashEl.addEventListener('click', this._remove);
 
     this._card = card;
@@ -45,8 +45,8 @@ export default class Card {
     this._card = null;
   }
 
-  _toggleLike() {
-    likeEl.classList.toggle('cards__like_active');
+  _toggleLike = () => {
+    this._likeEl.classList.toggle('cards__like_active');
   }
 
 }

@@ -38,14 +38,12 @@ export default class FormValidator {
   }
 
   toggleButtonState() {
-    const { _buttonEl } = this;
-
     if (this._inputList.some(inputEl => !inputEl.validity.valid)) {
-      _buttonEl.classList.add(this._selectors.inactiveButtonClass);
-      _buttonEl.disabled = true;
+      this._buttonEl.classList.add(this._selectors.inactiveButtonClass);
+      this._buttonEl.disabled = true;
     } else {
-      _buttonEl.classList.remove(this._selectors.inactiveButtonClass);
-      _buttonEl.disabled = false;
+      this._buttonEl.classList.remove(this._selectors.inactiveButtonClass);
+      this._buttonEl.disabled = false;
     }
   }
 
