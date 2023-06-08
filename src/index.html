@@ -5,17 +5,16 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ПР6 Зайцев</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body>
   <div class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Логотип">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип">
     </header>
     <main class="content">
       <section class="profile" aria-label="Профиль">
         <div class="profile__avatar-container">
-          <img class="profile__avatar" src="./images/profile-avatar.jpg" alt="Аватар">
+          <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар">
         </div>
         <div class="profile__info-wrapper">
           <div class="profile__info">
@@ -123,6 +122,5 @@
       <button class="cards__trash" aria-label="Удалить"></button>
     </li>
   </template>
-  <script type="module" src="./scripts/index.js" defer></script>
 </body>
 </html>
