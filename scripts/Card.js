@@ -32,7 +32,7 @@ export default class Card {
     imageEl.setAttribute('src', link);
 
     linkEl.addEventListener('click',
-      (evt) => this._handleLinkClick(evt, name, link)
+      (evt) => this._handleLinkClick(evt, {name, link})
     );
     this._likeEl.addEventListener('click', this._toggleLike);
     trashEl.addEventListener('click', this._remove);
@@ -40,7 +40,7 @@ export default class Card {
     this._card = card;
   }
 
-  _remove() {
+  _remove = () => {
     this._card.remove();
     this._card = null;
   }
