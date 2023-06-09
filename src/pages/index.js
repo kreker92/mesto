@@ -76,7 +76,8 @@ const popupFormCard = new PopupWithForm(
   (evt, values) => {
     evt.preventDefault();
 
-    cardList.addItem(values);
+    const card = new Card(values, cardTemplate, handleCardLinkClick);
+    cardList.addItem(card.get());
 
     formCardEl.reset();
     formCard.toggleButtonState();

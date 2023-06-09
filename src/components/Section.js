@@ -13,11 +13,11 @@ export default class Section {
   setItems() {
     this._clear();
     this._items.forEach(item => {
-      this.addItem(item);
+      this.addItem(this._renderer(item));
     });
   }
 
   addItem(item) {
-    this._wrapperEl.prepend(this._renderer(item));
+    this._wrapperEl.prepend(item);
   }
 }
