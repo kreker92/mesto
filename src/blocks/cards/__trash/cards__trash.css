@@ -9,6 +9,10 @@
   cursor: pointer;
 }
 
+.cards__trash:focus {
+  outline: none;
+}
+
 .cards__trash:hover {
   opacity: .6;
 }
