@@ -117,10 +117,7 @@ popupFormAvatarEdit.setEventListeners();
 const btnEditAvatar = document.querySelector('.profile__avatar-edit');
 btnEditAvatar.addEventListener('click',
   () => {
-    const { avatar } = userInfo.get();
-
-    formAvatarEditEl.elements.avatar.value = avatar;
-
+    formAvatarEditEl.reset();
     formAvatarEdit.resetFormValidation();
     formAvatarEdit.toggleButtonState();
     popupFormAvatarEdit.open();

@@ -21,7 +21,7 @@ export default class Section {
     this._items = items;
   }
 
-  addItem(props) {
+  addItem(...props) {
     this._wrapperEl.prepend(this._renderer(...props));
   }
 }
