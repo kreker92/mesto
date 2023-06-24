@@ -3,7 +3,7 @@ export default class Card {
     { name, link, likes, _id, owner },
     template,
     handleLinkClick,
-    api,
+    setLike,
     currentUserId,
     confirm,
   ) {
@@ -13,7 +13,7 @@ export default class Card {
     this._likes = likes;
     this._template = template;
     this._handleLinkClick = handleLinkClick;
-    this._api = api;
+    this._setLike = setLike;
     this._ownerId = owner?._id;
     this._currentUserId = currentUserId;
     this._confirm = confirm;
@@ -59,7 +59,7 @@ export default class Card {
     this._likeEl.addEventListener('click', this._toggleLike);
     this._likeCountEl.textContent = this._renderLikesCount();
     if (this._currentUserId === this._ownerId) {
-      trashEl.addEventListener('click', () => this._confirm(this._id));
+      trashEl.addEventListener('click', () => this._confirm());
     } else {
       trashEl.remove();
     }
@@ -74,14 +74,7 @@ export default class Card {
 
   _toggleLike = () => {
     this._likeEl.classList.toggle(this._cardLikeActiveClass);
-    this._api.setLike(`cards/${this._id}/likes`, {
-      method:
-        this._likes.map(user => user._id)
-          .includes(this._currentUserId) ? 'DELETE' : 'PUT',
-    }).then((res) => {
-      this._likes = res.likes;
-      this._likeCountEl.textContent = this._renderLikesCount();
-    })
+    this._setLike();
   }
 
   _doIlikeIt = () => {

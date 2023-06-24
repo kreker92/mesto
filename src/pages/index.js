@@ -8,6 +8,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirm from '../components/PopupWithConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 
 const formValidationConfig = {
@@ -48,6 +49,9 @@ const userInfo = new UserInfo(
 const currentUser = api.getUserInfo()
   .then(res => {
     userInfo.set(res);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
   });
 
 /**
@@ -64,8 +68,12 @@ const popupFormProfile = new PopupWithForm(
       .then(res => {
         userInfo.set(res);
         callback();
+        formProfile.toggleButtonState();
+        popupFormProfile.close();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
       });
-    formProfile.toggleButtonState();
   });
 popupFormProfile.setEventListeners();
 const btnEditProfile = document.querySelector('.profile__edit');
@@ -99,6 +107,10 @@ const popupFormAvatarEdit = new PopupWithForm(
     ).then(res => {
       userInfo.set(res);
       callback();
+      popupFormAvatarEdit.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
     });
   });
 popupFormAvatarEdit.setEventListeners();
@@ -137,9 +149,21 @@ const cardList = new Section({
       item,
       cardTemplate,
       handleCardLinkClick,
-      api,
+      function () {
+        api.setLike(`cards/${this._id}/likes`, {
+          method:
+            this._likes.map(user => user._id)
+              .includes(this._currentUserId) ? 'DELETE' : 'PUT',
+        }).then((res) => {
+          this._likes = res.likes;
+          this._likeCountEl.textContent = this._renderLikesCount();
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+      },
       currentUserId,
-      function() {
+      function() { // confirm
         popupFormConfirm.setObjToDel(this);
         popupFormConfirm.open();
       }
@@ -149,19 +173,24 @@ const cardList = new Section({
 }, '.cards__list');
 
 currentUser.then(() => {
-  cardList.setCurrentUserId(userInfo.getId());
   api.getInitialCards('cards')
     .then((initialCards) => {
       initialCards.reverse();
-      cardList.initItems(initialCards, userInfo.getId());
-      cardList.setItems();
+      cardList.initItems(initialCards);
+      cardList.setItems(userInfo, userInfo.getId());
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
     });
 })
+.catch((err) => {
+  console.log(`Ошибка: ${err}`);
+});
 
 /**
  * Форма-подтверждение удаления
  */
-const popupFormConfirm = new PopupWithForm(
+const popupFormConfirm = new PopupWithConfirm(
   '.popup-confirm',
   function (evt, _, callback, cardToDel) {
     evt.preventDefault();
@@ -172,6 +201,9 @@ const popupFormConfirm = new PopupWithForm(
           cardToDel.remove();
         }
         callback();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
       });
   });
 popupFormConfirm.setEventListeners();
@@ -188,17 +220,20 @@ const popupFormCard = new PopupWithForm(
   (evt, values, callback) => {
     evt.preventDefault();
 
-    // const card = new Card(values, cardTemplate, handleCardLinkClick);
     api.addCard('cards', values)
       .then(res => {
         if (Object.keys(res).length) {
-          cardList.addItem(res);
+          cardList.addItem(res, userInfo.getId());
+          formCardEl.reset();
+          formCard.toggleButtonState();
         }
+        popupFormCard.close();
         callback();
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
       });
 
-    formCardEl.reset();
-    formCard.toggleButtonState();
   });
 popupFormCard.setEventListeners();
 const btnAddCard = document.querySelector('.profile__add');

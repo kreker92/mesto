@@ -7,6 +7,10 @@ export default class Popup {
     this._btnCloseClass = 'popup__close';
   }
 
+  _renderLoading(btn) {
+    btn.textContent = 'Сохранение...';
+  }
+
   open() {
     this._popupEl.classList.add(this._openedClass);
     document.addEventListener('keydown', this._handleEscClose);
@@ -24,7 +28,7 @@ export default class Popup {
     }
   }
 
-  setEventListeners() {
+  _setEventListeners() {
     this._popupEl.addEventListener('click', (evt) => {
       const isOverlay = evt.target.classList.contains(this._class);
       const isCloseBtn = evt.target.classList.contains(this._btnCloseClass)

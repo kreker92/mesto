@@ -1,11 +1,12 @@
-import Popup from "./Popup.js";
+import PopupWithForm from "./PopupWithForm.js";
 
-export default class PopupWithForm extends Popup {
+export default class PopupWithConfirm extends PopupWithForm {
   constructor(selector, handleSubmit) {
-    super(selector);
-    this._handleSubmit = handleSubmit;
-    this._form = this._popupEl.querySelector('.popup__form');
-    this._inputList = this._form.querySelectorAll('.popup__input');
+    super(selector, handleSubmit);
+  }
+
+  setObjToDel(obj) {
+    this._objToDel = obj;
   }
 
   setEventListeners() {
@@ -20,18 +21,11 @@ export default class PopupWithForm extends Popup {
           this._getInputValues(),
           () => {
             btnSubmit.textContent = btnSubmitText;
+            this.close();
           },
+          this._objToDel,
         );
       }
-    );
-  }
-
-  _getInputValues = () => {
-    return Object.fromEntries(
-      Array.from(this._inputList).map((input) => [
-        input.name,
-        input.value,
-      ])
     );
   }
 }
