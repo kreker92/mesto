@@ -10,10 +10,10 @@ export default class Section {
     this._wrapperEl.innerHTML = '';
   }
 
-  setItems(currentUserId) {
+  setItems() {
     this._clear();
     this._items.forEach(item => {
-      this.addItem(item, currentUserId);
+      this.addItem(item);
     });
   }
 

@@ -39,6 +39,7 @@ const formProfileEl = document.forms['profile-info'];
 const formProfile = new FormValidator(formValidationConfig, formProfileEl);
 formProfile.enableValidation();
 
+let userId = null;
 const userInfo = new UserInfo(
   {
     nameSelector: '.profile__name',
@@ -48,6 +49,7 @@ const userInfo = new UserInfo(
 );
 const currentUser = api.getUserInfo()
   .then(res => {
+    userId = res._id;
     userInfo.set(res);
   })
   .catch((err) => {
@@ -61,15 +63,12 @@ const popupFormProfile = new PopupWithForm(
   '.popup-profile',
   (evt, values, callback) => {
     evt.preventDefault();
-    api.setUserInfo({
-      ...userInfo.get(),
-      ...values,
-    })
-      .then(res => {
-        userInfo.set(res);
+    api.setUserInfo(values)
+      .then((res) => {
         callback();
         formProfile.toggleButtonState();
         popupFormProfile.close();
+        userInfo.set(res);
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
@@ -141,7 +140,7 @@ const cardTemplate = document.querySelector('#card').content;
 
 const cardList = new Section({
   items: [],
-  renderer: (item, currentUserId) => {
+  renderer: (item) => {
     const card = new Card(
       item,
       cardTemplate,
@@ -150,7 +149,7 @@ const cardList = new Section({
         api.setLike(`cards/${this._id}/likes`, {
           method:
             this._likes.map(user => user._id)
-              .includes(this._currentUserId) ? 'DELETE' : 'PUT',
+              .includes(userId) ? 'DELETE' : 'PUT',
         }).then((res) => {
           this._likes = res.likes;
           this._likeCountEl.textContent = this._renderLikesCount();
@@ -159,7 +158,7 @@ const cardList = new Section({
           console.log(`Ошибка: ${err}`);
         });
       },
-      currentUserId,
+      userId,
       function() { // confirm
         popupFormConfirm.setObjToDel(this);
         popupFormConfirm.open();
@@ -174,7 +173,7 @@ currentUser.then(() => {
     .then((initialCards) => {
       initialCards.reverse();
       cardList.initItems(initialCards);
-      cardList.setItems(userInfo, userInfo.getId());
+      cardList.setItems(userInfo);
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
@@ -220,7 +219,7 @@ const popupFormCard = new PopupWithForm(
     api.addCard('cards', values)
       .then(res => {
         if (Object.keys(res).length) {
-          cardList.addItem(res, userInfo.getId());
+          cardList.addItem(res, userId);
           formCardEl.reset();
           formCard.toggleButtonState();
         }
